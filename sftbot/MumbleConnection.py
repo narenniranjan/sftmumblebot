@@ -210,6 +210,7 @@ class MumbleConnection(AbstractConnection.AbstractConnection):
             self._log("won't analyze your voice packages, sorry", 4)
         elif messagetype == pb2.Ping:
             self._log("ping answer received", 3)
+        elif messagetype == pb2.UserRemove:
         else:
             self._log("unhandeled package received: " + messagetype.__name__ +
                       ", " + str(size) + " bytes", 2)

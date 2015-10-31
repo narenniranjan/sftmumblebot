@@ -15,13 +15,15 @@ console = None
 
 def mumbleTextMessageCallback(sender, message):
     line = "<{}> {}".format(sender, message)
-    console.sendTextMessage(line)
+    console.sendTextMessage(sender)
+    console.sendTextMessage(message)
     irc.sendTextMessage(line)
 
 
 def ircTextMessageCallback(sender, message):
     line = "<b>{}</b>:{}".format(sender, message)
-    console.sendTextMessage(line)
+    console.sendTextMessage(sender)
+    console.sendTextMessage(message)
     mumble.sendTextMessage(line)
 
 
