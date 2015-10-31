@@ -134,7 +134,22 @@ class MumbleConnection(AbstractConnection.AbstractConnection):
         else:
             raise Exception("expected 6 bytes, but got " + str(len(header)))
 
-        data = self._socket.recv(size)
+        if size < 4096:
+            data = self._socket.recv(size)
+            while len(data) < size:
+                data += self._socket.recv(size - len(data))
+        else:
+            data = self._socket.recv(4096)
+            tempsize = size - 4096
+            while tempsize > 4096:
+                newdata = self._socket.recv(4096)
+                while len(newdata) < 4096:
+                    newdata += self._socket.recv(4096 - len(newdata))
+                data += newdata
+                tempsize -= 4096
+            data += self._socket.recv(tempsize)
+            while len(data) < size:
+                data += self._socket.recv(size - len(data))
 
         # look up the message type and invoke the message type's constructor.
         try:

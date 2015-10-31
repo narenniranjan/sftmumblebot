@@ -14,21 +14,16 @@ console = None
 
 
 def mumbleTextMessageCallback(sender, message):
-    line = "mumble: " + sender + ": " + message
+    message.replace("<b>", "*").replace("</b>", "*")
+    line = "<" + sender + "> " + message
     console.sendTextMessage(line)
     irc.sendTextMessage(line)
-    if(message == 'gtfo'):
-        mumble.sendTextMessage("KAY CU")
-        mumble.stop()
 
 
 def ircTextMessageCallback(sender, message):
-    line = "irc: " + sender + ": " + message
+    line = sender + ": " + message
     console.sendTextMessage(line)
     mumble.sendTextMessage(line)
-    if (message == 'gtfo'):
-        irc.sendTextMessage("KAY CU")
-        irc.stop()
 
 
 def consoleTextMessageCallback(sender, message):
