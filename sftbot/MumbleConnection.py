@@ -211,6 +211,7 @@ class MumbleConnection(AbstractConnection.AbstractConnection):
         elif messagetype == pb2.Ping:
             self._log("ping answer received", 3)
         elif messagetype == pb2.UserRemove:
+            print pbMess.actor
         else:
             self._log("unhandeled package received: " + messagetype.__name__ +
                       ", " + str(size) + " bytes", 2)
