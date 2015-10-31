@@ -14,14 +14,13 @@ console = None
 
 
 def mumbleTextMessageCallback(sender, message):
-    message.replace("<b>", "*").replace("</b>", "*")
-    line = "<" + sender + "> " + message
+    line = "<{}> {}".format(sender, message)
     console.sendTextMessage(line)
     irc.sendTextMessage(line)
 
 
 def ircTextMessageCallback(sender, message):
-    line = sender + ": " + message
+    line = "<b>{}</b>:{}".format(sender, message)
     console.sendTextMessage(line)
     mumble.sendTextMessage(line)
 
